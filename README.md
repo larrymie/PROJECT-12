@@ -20,4 +20,28 @@ Tested my set up by making some changes in README.MD file inside my ansible-conf
 The changes was subsequently updated with every commit to my master branch. IMAGE 04
 ![04](https://user-images.githubusercontent.com/91284177/151958419-e37b2c17-484a-4dd7-8474-256cfd37a785.png)
 
+**REFACTOR ANSIBLE CODE BY IMPORTING OTHER PLAYBOOKS INTO SITE.YML
+Step 2 – Refactor Ansible code by importing other playbooks into site.yml
+
+Within playbooks folder,I created a new file and named it site.yml. Other playbooks will be included here as a reference. In other words, site.yml will become a parent to all other playbooks that will be developed.
+I created a new folder in root of the repository and named it static-assignments. The static-assignments folder is where all other children playbooks will be stored.
+I moved common.yml file into the newly created static-assignments folder.
+Inside site.yml file, I imported common.yml playbook.
+Ran ansible-playbook command against the dev environment. I created another playbook under static-assignments and named it common-del.yml. In this playbook and configured deletion of wireshark utility. IMAGE 05
+![05](https://user-images.githubusercontent.com/91284177/152387596-8560b516-d872-4993-8a87-e4ca03d4d6ca.png)
+
+Updated site.yml with - import_playbook: ../static-assignments/common-del.yml instead of common.yml and run it against dev servers. IMAGE 06
+![06](https://user-images.githubusercontent.com/91284177/152387848-3b8afef2-f720-47d5-834e-2c95a0a33ac0.png)
+I ran the ansible playbook using <ansible-playbook -i /home/ubuntu/ansible-config-artifact/inventory/dev.yml /home/ubuntu/ansible-config-artifact/playbooks/site.yml> IMAGE 07 showed it ran succeessfully.
+![07](https://user-images.githubusercontent.com/91284177/152390640-f670a49b-b173-4dc9-acbb-ab31efe0d0ea.png)
+
+I confirmed in two of the servers (with IP adresses 172.31.31.75 and 172.31.41.130 ) that wireshark was successfully removed. IMAGES 08, 09.
+![08](https://user-images.githubusercontent.com/91284177/152390501-9f84a05a-8406-4717-8171-148d688bd9bb.png)
+![09](https://user-images.githubusercontent.com/91284177/152390511-73b39d32-1a3a-4a5e-8084-f09137c1e61f.png)
+
+
+
+
+
+
 
