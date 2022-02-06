@@ -41,7 +41,43 @@ I confirmed in two of the servers (with IP adresses 172.31.31.75 and 172.31.41.1
 
 **CONFIGURE UAT WEBSERVERS WITH A ROLE ‘WEBSERVER’
 
-Launched 2 fresh EC2 instances using RHEL 8 image, I used them as my uat servers, gave them names accordingly – **Web1-UAT and Web2-UAT.
+Launched 2 fresh EC2 instances using RHEL 8 image, I used them as my uat servers, gave them names accordingly – **Web1-UAT<172.31.40.43> and Web2-UAT <172.31.33.168>.
+
+I created a directory called roles manually. the structure is represented in IMAGE 10
+![10](https://user-images.githubusercontent.com/91284177/152699130-4ede956d-25ba-4f54-b41f-7c4e74e41f9b.png)
+my inventory ansible-config-mgt/inventory/uat.yml file with IP addresses of my 2 UAT Web servers. IMAGE11 
+
+![11](https://user-images.githubusercontent.com/91284177/152699286-9f730929-f8bd-456a-a2ce-677e5c794c92.png)
+In /etc/ansible/ansible.cfg file i uncommented roles_path string and provided a full path to my roles directory roles_path    = /home/ubuntu/ansible-config-mgt/roles, so Ansible could know where to find configured roles.
+ In my tasks directory, within the main.yml file, I  wrote configuration tasks to do the following:
+ Install and configure Apache (httpd service)
+Clone Tooling website from GitHub https://github.com/larrymie/tooling.git.
+Ensure the tooling website code is deployed to /var/www/html on each of 2 UAT Web servers.
+Make sure httpd service is started. IMAGE12
+![12](https://user-images.githubusercontent.com/91284177/152699460-a46ae49b-2b2a-4a19-935b-69a7bc7f70bd.png)
+
+**REFERENCE WEBSERVER ROLE
+
+Within the static-assignments folder, I created a new assignment for uat-webservers uat-webservers.yml. This is where you I referenced the role.
+![13](https://user-images.githubusercontent.com/91284177/152699765-648d3d14-48b2-4a32-ae7c-7ee77d6535b3.png)
+ I refered my uat-webservers.yml role inside site.yml. IMAGE 14
+![14](https://user-images.githubusercontent.com/91284177/152699861-93309eb5-624d-49e5-bf7d-6702dcd011a2.png)
+
+Commited my changes, created a Pull Request and merge them to master branch, made sure webhook triggered two consequent Jenkins jobs, ran successfully and copied all the files to my Jenkins-Ansible server into /home/ubuntu/ansible-config-mgt/ directory. IMAGES 15-19
+![15](https://user-images.githubusercontent.com/91284177/152699995-7d5b3def-7a20-45f3-99c1-b892308c4605.png)
+![16](https://user-images.githubusercontent.com/91284177/152700005-9673d9db-a32c-4334-b0c7-0a88ec02bcb0.png)
+![17](https://user-images.githubusercontent.com/91284177/152700012-cdc129c6-4f79-4277-90af-de88b476b306.png)
+![18](https://user-images.githubusercontent.com/91284177/152700014-c47b6968-1f44-46f9-9906-9b9e15d244a3.png)
+![19](https://user-images.githubusercontent.com/91284177/152700019-61a9e481-4bf6-4e52-bf94-7d6ccf912e18.png)
+
+I ran the playbook against my uat inventory, and was successful. IMAGE 20
+
+![20](https://user-images.githubusercontent.com/91284177/152700087-24aa4c2d-3326-4e6b-9116-5674a446e6d5.png)
+
+I saw both of my UAT Web servers configured and you tried to reach them from my browser using <http://172.31.40.43/index.php and http:/172.31.33.168/index.php> IMAGES 21 & 22
+![21](https://user-images.githubusercontent.com/91284177/152700225-bef5f82c-0b61-4458-b355-c18cc85862f4.png)
+![22](https://user-images.githubusercontent.com/91284177/152700233-0b71bf3e-cd20-4382-92a7-0e355543c449.png)
+
 
 
 
