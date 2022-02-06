@@ -39,6 +39,10 @@ I confirmed in two of the servers (with IP adresses 172.31.31.75 and 172.31.41.1
 ![08](https://user-images.githubusercontent.com/91284177/152390501-9f84a05a-8406-4717-8171-148d688bd9bb.png)
 ![09](https://user-images.githubusercontent.com/91284177/152390511-73b39d32-1a3a-4a5e-8084-f09137c1e61f.png)
 
+**CONFIGURE UAT WEBSERVERS WITH A ROLE ‘WEBSERVER’
+
+Launched 2 fresh EC2 instances using RHEL 8 image, I used them as my uat servers, gave them names accordingly – **Web1-UAT and Web2-UAT.
+
 
 
 
